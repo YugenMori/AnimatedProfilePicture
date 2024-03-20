@@ -1,0 +1,6 @@
+## Interface: 100206
+## Title: AnimatedProfilePicture
+## Author: Yugen
+## Version: 1.0.3
+## SavedVariablesPerCharacter: ReloadUIProfile
+core.lua
