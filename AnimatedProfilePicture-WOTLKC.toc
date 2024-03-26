@@ -1,6 +1,26 @@
 ## Interface: 30403
 ## Title: AnimatedProfilePicture
+## Version: 1.0.0.4_Classic_Dragonflight
 ## Author: Yugen
-## Version: 1.0.3
+## Notes-enUS: 3D Animated Profile Picture Made Simple
+## Notes-ptBR: Foto de Perfil Animada em 3D Feita de Forma Simples
+## Notes-deDE: Einfaches Erstellen von 3D-animierten Profilbildern
+## Notes-enGB: 3D Animated Profile Picture Made Simple
+## Notes-esES: Foto de Perfil Animada en 3D Hecha Simple
+## Notes-esMX: Foto de Perfil Animada en 3D Hecha Simple
+## Notes-frFR: Photo de Profil Animée en 3D Simplifiée
+## Notes-itIT: Immagine del Profilo Animata in 3D Resa Semplice
+## Notes-koKR: 3D 애니메이션 프로필 사진 쉽게 만들기
+## Notes-ptBR: Interface minimalista para World of Warcraft
+## Notes-ruRU: Простое Создание Анимированного 3D Аватара
+## Notes-zhCN: 简单制作3D动画头像
+## Notes-zhTW: 簡單製作3D動畫頭像
 ## SavedVariablesPerCharacter: ReloadUIProfile
-core.lua
+## IconTexture: Interface\AddOns\AbyssUIClassic\textures\extra\logo\abyssuilogo
+
+# Libs
+
+# Localization
+
+# AnimatedProfilePicture
+core\AnimatedProfilePicture.lua
