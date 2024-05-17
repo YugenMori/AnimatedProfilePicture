@@ -11,6 +11,7 @@ local APP_bordertarget
 local function loadmodelPlayer()
     if (GetWoWVersion > 100000) then
         ModelFramePlayer:SetAllPoints(PlayerFrame.PlayerFrameContainer.PlayerPortrait)
+        PlayerName:SetPoint("TOPLEFT", PlayerFrame.PlayerFrameContent.PlayerFrameContentMain, "TOPLEFT", 95, -26)
     else
         ModelFramePlayer:SetAllPoints(PlayerPortrait)
     end
@@ -38,8 +39,9 @@ local function loadmodelPlayer()
         overlay:SetBlendMode("ALPHAKEY")
         if GetWoWVersion > 100000 then
             PlayerFrame.PlayerFrameContainer.PlayerPortrait:SetAlpha(0)
-            PlayerFrame.PlayerFrameContainer.PlayerPortrait:SetScale(1.03)
-            PlayerFrameModelFramePlayerModelFrame_Model1:SetPoint("TOPLEFT", PlayerFrameModelFramePlayer, "TOPLEFT", -5, 0)
+            --PlayerFrame.PlayerFrameContainer.PlayerPortrait:SetScale(1.03) -- weird scale to match target
+            PlayerFrame.PlayerFrameContainer.PlayerPortrait:SetScale(1)
+            PlayerFrameModelFramePlayerModelFrame_Model1:SetPoint("TOPLEFT", PlayerFrameModelFramePlayer, "TOPLEFT", 0, 0)
         else
             PlayerPortrait:SetAlpha(0)
         end
@@ -85,11 +87,13 @@ end)
 local function loadmodelTarget()
     if (GetWoWVersion > 100000) then
         ModelFrameTarget:SetAllPoints(TargetFrame.TargetFrameContainer.Portrait)
+        TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBar:SetFrameLevel(9)
+        TargetFrame.TargetFrameContent.TargetFrameContentMain.ManaBar:SetFrameLevel(9)
+        TargetFrame.TargetFrameContent.TargetFrameContentMain:SetFrameLevel(9)
+        TargetFrame.TargetFrameContent.TargetFrameContentContextual:SetFrameLevel(10000)
+        TargetFrame.TargetFrameContainer:SetFrameLevel(9998)
         TargetFrame.TargetFrameContainer.Portrait:SetAlpha(0)
-        TargetFrame.TargetFrameContainer.BossPortraitFrameTexture:SetAlpha(0)
-        TargetFrame.TargetFrameContent.TargetFrameContentContextual.PvpIcon:SetAlpha(0)
-        TargetFrame.TargetFrameContent.TargetFrameContentContextual.PrestigeBadge:SetAlpha(0)
-        TargetFrame.TargetFrameContent.TargetFrameContentContextual.PrestigePortrait:SetAlpha(0)
+        TargetFrame.TargetFrameContainer:SetFrameLevel(1)
         local bossrare = TargetFrame:CreateTexture(nil, "OVERLAY")
         bossrare:SetTexture("Interface\\Addons\\AnimatedProfilePicture\\textures\\UIUnitFrameBoss2x")
         bossrare:SetAllPoints(ModelFrameTarget)
@@ -99,11 +103,11 @@ local function loadmodelTarget()
     ModelFrameTarget:SetWidth(56)
     ModelFrameTarget:SetHeight(56)
     ModelFrameTarget:SetAlpha(1)
-    ModelFrameTarget:SetFrameStrata("MEDIUM")
+    ModelFrameTarget:SetFrameStrata("LOW")
+    TargetFrameToT:SetFrameStrata("HIGH")
 
     if ModelFrame_Model2 == nil then
         ModelFrame_Model2 = CreateFrame("PlayerModel", "$parentModelFrame_Model2", ModelFrameTarget)
-        --ModelFrame_Model2:ClearModel()
         ModelFrame_Model2:SetUnit("target")
         ModelFrame_Model2:SetAllPoints(ModelFrameTarget)
         ModelFrame_Model2:SetCustomCamera(0)
@@ -116,7 +120,7 @@ local function loadmodelTarget()
         overlay:SetBlendMode("ALPHAKEY")
         if GetWoWVersion > 100000 then
             TargetFrame.TargetFrameContainer.Portrait:SetAlpha(0)
-            TargetFrame.TargetFrameContainer.Portrait:SetScale(1.1)
+            --TargetFrame.TargetFrameContainer.Portrait:SetScale(1.1) -- weird scale that works
             TargetFrameModelFrameTargetModelFrame_Model2:SetPoint("TOPRIGHT", TargetFrameModelFrameTarget, "TOPRIGHT", 5, 0)
             TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBar.RightText:SetPoint("RIGHT", TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBar, "RIGHT", -10, 0)
             --TargetFrame.TargetFrameContainer:SetAlpha(0.2)
@@ -150,23 +154,32 @@ ModelFrameTarget:SetScript("OnEvent", function(self, event)
     end
 end)
 
-local startmodel = CreateFrame("Frame", nil, nil)
-startmodel:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", "player")
-startmodel:SetScript("OnEvent", function(self, event, ...)
-    if event == "UNIT_PORTRAIT_UPDATE" then
-        C_Timer.After(1, loadmodelPlayer)
+local UIplayer = CreateFrame("Frame", nil, nil)
+UIplayer:RegisterUnitEvent("UNIT_MODEL_CHANGED", "player")
+UIplayer:SetScript("OnEvent", function(self, event, ...)
+    if event == "UNIT_MODEL_CHANGED" then
+        loadmodelPlayer()
     end
 end)
 
 local UIchanged = CreateFrame("Frame", nil, nil)
 UIchanged:RegisterEvent("UI_SCALE_CHANGED")
-UIchanged:RegisterEvent("PLAYER_LOGIN")
 UIchanged:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", "player")
 UIchanged:SetScript("OnEvent", function(self, event, ...)
-    if event == "UI_SCALE_CHANGED" or event == "PLAYER_LOGIN" or event == "UNIT_PORTRAIT_UPDATE" then
+    if event == "UI_SCALE_CHANGED" or event == "UNIT_PORTRAIT_UPDATE" then
         C_Timer.After(1, loadmodelPlayer)
         C_Timer.After(1, loadmodelTarget)
         uiChanged = true
+    end
+end)
+
+local UILoad = CreateFrame("Frame", nil, nil)
+UILoad:RegisterEvent("PLAYER_ENTERING_WORLD")
+UILoad:RegisterEvent("PLAYER_LOGIN")
+UILoad:SetScript("OnEvent", function(self, event, ...)
+    if event == "PLAYER_LOGIN" or event == "PLAYER_ENTERING_WORLD" then
+        C_Timer.After(1, loadmodelPlayer)
+        C_Timer.After(1, loadmodelTarget)
     end
 end)
 
@@ -183,8 +196,7 @@ ReloadFrameFirstFrame:SetFrameStrata("HIGH")
 ReloadFrameFirstFrame.text = ReloadFrameFirstFrame.text or ReloadFrameFirstFrame:CreateFontString(nil, "ARTWORK", "QuestMapRewardsFont")
 ReloadFrameFirstFrame.text:SetScale(5)
 ReloadFrameFirstFrame.text:SetAllPoints(true)
-ReloadFrameFirstFrame.text:SetJustifyH("CENTER")
-ReloadFrameFirstFrame.text:SetJustifyV("CENTER")
+ReloadFrameFirstFrame.text:SetPoint("CENTER")
 ReloadFrameFirstFrame.text:SetText("A reload it's necessary!\nClick here!")
 ----------------------------------------------------
 local ReloadFrameFirstFrameBorder = ReloadFrameFirstFrame:CreateTexture(nil, "BACKGROUND")

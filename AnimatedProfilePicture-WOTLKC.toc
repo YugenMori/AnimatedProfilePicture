@@ -1,6 +1,6 @@
 ## Interface: 30403
 ## Title: AnimatedProfilePicture
-## Version: 1.0.0.4_Classic_Dragonflight
+## Version: 10.2.7.1_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-enUS: 3D Animated Profile Picture Made Simple
 ## Notes-ptBR: Foto de Perfil Animada em 3D Feita de Forma Simples
@@ -16,7 +16,7 @@
 ## Notes-zhCN: 简单制作3D动画头像
 ## Notes-zhTW: 簡單製作3D動畫頭像
 ## SavedVariablesPerCharacter: ReloadUIProfile
-## IconTexture: Interface\AddOns\AbyssUIClassic\textures\extra\logo\abyssuilogo
+## IconTexture: Interface\AddOns\AnimatedProfilePicture\textures\extra\logo\animatedprofilepicture
 
 # Libs
 
