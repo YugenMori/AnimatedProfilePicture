@@ -87,7 +87,7 @@ end)
 local function loadmodelTarget()
     if (GetWoWVersion > 100000) then
         ModelFrameTarget:SetAllPoints(TargetFrame.TargetFrameContainer.Portrait)
-        TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBar:SetFrameLevel(9)
+        TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBarsContainer.HealthBar:SetFrameLevel(9)
         TargetFrame.TargetFrameContent.TargetFrameContentMain.ManaBar:SetFrameLevel(9)
         TargetFrame.TargetFrameContent.TargetFrameContentMain:SetFrameLevel(9)
         TargetFrame.TargetFrameContent.TargetFrameContentContextual:SetFrameLevel(10000)
@@ -122,7 +122,7 @@ local function loadmodelTarget()
             TargetFrame.TargetFrameContainer.Portrait:SetAlpha(0)
             --TargetFrame.TargetFrameContainer.Portrait:SetScale(1.1) -- weird scale that works
             TargetFrameModelFrameTargetModelFrame_Model2:SetPoint("TOPRIGHT", TargetFrameModelFrameTarget, "TOPRIGHT", 5, 0)
-            TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBar.RightText:SetPoint("RIGHT", TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBar, "RIGHT", -10, 0)
+            TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBarsContainer.HealthBar.RightText:SetPoint("RIGHT", TargetFrame.TargetFrameContent.TargetFrameContentMain.HealthBarsContainer.HealthBar, "RIGHT", -10, 0)
             --TargetFrame.TargetFrameContainer:SetAlpha(0.2)
         else
             TargetFrameTextureFramePVPIcon:SetAlpha(0)
