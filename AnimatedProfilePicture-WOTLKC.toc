@@ -1,6 +1,6 @@
 ## Interface: 30403
 ## Title: AnimatedProfilePicture
-## Version: 11.0.0.1_Classic_TWW
+## Version: 11.0.2.1_Classic_TWW
 ## Author: Yugen
 ## Notes-enUS: 3D Animated Profile Picture Made Simple
 ## Notes-ptBR: Foto de Perfil Animada em 3D Feita de Forma Simples
